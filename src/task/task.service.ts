@@ -13,9 +13,9 @@ export class TaskService {
 
   async findAll() {
     return await this.entity.find(
-      { date: { $gt: new Date() } },
-      null,
-      { sort: { date: 1 } }
+      // { date: { $gt: new Date() } },
+      // null,
+      // { sort: { date: 1 } }
     )
   }
 
@@ -40,5 +40,14 @@ export class TaskService {
     const task = await this.findOne(id)
     Object.assign(task, dto)
     return await task.save()
+  }
+
+  async delete(id: string) {
+    await this.findOne(id)
+    await this.entity.findByIdAndDelete(id)
+
+    // or:
+    // const task = await this.findOne(id)
+    // await task.delete()
   }
 }
